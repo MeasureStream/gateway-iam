@@ -6,4 +6,5 @@ cat keycloak-backup.sql | docker exec -i gateway-iam-keycloak-db-1  psql -U keyc
 docker compose up -d
 
 #Create a keycloak-backup.sql file
-docker exec keycloak-db pg_dump -U keycloak -d keycloak > keycloak-backup.sql
+docker exec gateway-iam-keycloak-db-1 pg_dump -U keycloak -d keycloak > keycloak-backup.sql
+

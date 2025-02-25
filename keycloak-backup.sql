@@ -2126,6 +2126,7 @@ c33cd985-c2a5-46f0-bbe8-a84bcac55442	5454b041-a278-448d-b7a6-21d8c05831e7
 
 COPY public.credential (id, salt, type, user_id, created_date, user_label, secret_data, credential_data, priority) FROM stdin;
 6857209b-c214-420e-96dd-22e25a641ffd	\N	password	5addde5e-fc0d-4716-bb94-47bdd9e711c4	1740481504084	\N	{"value":"0Xg1/hzvRe6lkri499IID/IVr7nqnPoCnxIITGBKF5U=","salt":"vbSaKwHP+7JuEanPsHrQLg==","additionalParameters":{}}	{"hashIterations":5,"algorithm":"argon2","additionalParameters":{"hashLength":["32"],"memory":["7168"],"type":["id"],"version":["1.3"],"parallelism":["1"]}}	10
+7f09212e-d4a9-4346-b013-803cf8b8a6fa	\N	password	1d445807-c24e-4513-884d-22451ce9cf67	1740493722559	My password	{"value":"QfLbVcmF3Bwy3t+GoD5L494GiQ5vnf8sd0hI3/PwrII=","salt":"C+i8fXTKx+6UMFiAqmHd3A==","additionalParameters":{}}	{"hashIterations":5,"algorithm":"argon2","additionalParameters":{"hashLength":["32"],"memory":["7168"],"type":["id"],"version":["1.3"],"parallelism":["1"]}}	10
 \.
 
 
@@ -2568,7 +2569,9 @@ olm38	26.0.8	1740493253
 --
 
 COPY public.offline_client_session (user_session_id, client_id, offline_flag, "timestamp", data, client_storage_provider, external_client_id, version) FROM stdin;
-5651831f-1c60-4643-856f-3f7c6c17f532	fec6b05c-1521-42c8-b5eb-e83a00d28125	0	1740493484	{"authMethod":"openid-connect","redirectUri":"http://localhost:8081/admin/master/console/","notes":{"clientId":"fec6b05c-1521-42c8-b5eb-e83a00d28125","iss":"http://localhost:8081/realms/master","startedAt":"1740493303","response_type":"code","level-of-authentication":"-1","code_challenge_method":"S256","nonce":"eb737629-a5e5-48f6-95b0-40618e8ef086","response_mode":"query","scope":"openid","userSessionStartedAt":"1740493303","redirect_uri":"http://localhost:8081/admin/master/console/","state":"170c98ca-f61c-4783-8ddd-d9134d441028","code_challenge":"kDwmNoHm8R24fCnl0Q0VYir53x6gSlMp__2n6fkIm6E"}}	local	local	4
+5651831f-1c60-4643-856f-3f7c6c17f532	fec6b05c-1521-42c8-b5eb-e83a00d28125	0	1740493690	{"authMethod":"openid-connect","redirectUri":"http://localhost:8081/admin/master/console/","notes":{"clientId":"fec6b05c-1521-42c8-b5eb-e83a00d28125","iss":"http://localhost:8081/realms/master","startedAt":"1740493303","response_type":"code","level-of-authentication":"-1","code_challenge_method":"S256","nonce":"eb737629-a5e5-48f6-95b0-40618e8ef086","response_mode":"query","scope":"openid","userSessionStartedAt":"1740493303","redirect_uri":"http://localhost:8081/admin/master/console/","state":"170c98ca-f61c-4783-8ddd-d9134d441028","code_challenge":"kDwmNoHm8R24fCnl0Q0VYir53x6gSlMp__2n6fkIm6E"}}	local	local	5
+311bbe0a-200a-4496-a8b8-86139add1115	71d0319e-df6f-4a71-8f4a-353fc8b57122	1	1740493729	{"authMethod":"openid-connect","redirectUri":"http://localhost:8080/login/oauth2/code/gateway","notes":{"clientId":"71d0319e-df6f-4a71-8f4a-353fc8b57122","scope":"openid offline_access","userSessionStartedAt":"1740493729","iss":"http://localhost:8081/realms/measurestream","startedAt":"1740493729","response_type":"code","level-of-authentication":"-1","redirect_uri":"http://localhost:8080/login/oauth2/code/gateway","state":"hnw7T9IoByciLxx9qgnujCpQtQIv6ON54BADQjgmDYw=","nonce":"PZLjdtj1i9av_TbuoE4ckbEQomV8XTyOFNqsenmN1JU"}}	local	local	0
+311bbe0a-200a-4496-a8b8-86139add1115	71d0319e-df6f-4a71-8f4a-353fc8b57122	0	1740494237	{"authMethod":"openid-connect","redirectUri":"http://localhost:8080/login/oauth2/code/gateway","notes":{"clientId":"71d0319e-df6f-4a71-8f4a-353fc8b57122","scope":"openid offline_access","userSessionStartedAt":"1740493729","iss":"http://localhost:8081/realms/measurestream","startedAt":"1740493729","response_type":"code","level-of-authentication":"-1","redirect_uri":"http://localhost:8080/login/oauth2/code/gateway","state":"iPrKJrg1-75JUR5DVLdpSbXqm7qI1FB1fiM4KsBTOSA=","nonce":"hgNNaSpqnTtYAfc_M1CyFcZ_kZzAhzkGerkVTKXHlSc","SSO_AUTH":"true"}}	local	local	2
 \.
 
 
@@ -2577,7 +2580,9 @@ COPY public.offline_client_session (user_session_id, client_id, offline_flag, "t
 --
 
 COPY public.offline_user_session (user_session_id, user_id, realm_id, created_on, offline_flag, data, last_session_refresh, broker_session_id, version) FROM stdin;
-5651831f-1c60-4643-856f-3f7c6c17f532	5addde5e-fc0d-4716-bb94-47bdd9e711c4	767d9b8d-d1e0-46e8-8336-872e7ee443dd	1740493303	0	{"ipAddress":"172.26.0.1","authMethod":"openid-connect","rememberMe":false,"started":0,"notes":{"KC_DEVICE_NOTE":"eyJpcEFkZHJlc3MiOiIxNzIuMjYuMC4xIiwib3MiOiJMaW51eCIsIm9zVmVyc2lvbiI6IlVua25vd24iLCJicm93c2VyIjoiRmlyZWZveC8xMzUuMCIsImRldmljZSI6Ik90aGVyIiwibGFzdEFjY2VzcyI6MCwibW9iaWxlIjpmYWxzZX0=","AUTH_TIME":"1740493303","authenticators-completed":"{\\"e9d99147-452a-46b6-8647-7c9435c26a58\\":1740493303}"},"state":"LOGGED_IN"}	1740493484	\N	4
+5651831f-1c60-4643-856f-3f7c6c17f532	5addde5e-fc0d-4716-bb94-47bdd9e711c4	767d9b8d-d1e0-46e8-8336-872e7ee443dd	1740493303	0	{"ipAddress":"172.26.0.1","authMethod":"openid-connect","rememberMe":false,"started":0,"notes":{"KC_DEVICE_NOTE":"eyJpcEFkZHJlc3MiOiIxNzIuMjYuMC4xIiwib3MiOiJMaW51eCIsIm9zVmVyc2lvbiI6IlVua25vd24iLCJicm93c2VyIjoiRmlyZWZveC8xMzUuMCIsImRldmljZSI6Ik90aGVyIiwibGFzdEFjY2VzcyI6MCwibW9iaWxlIjpmYWxzZX0=","AUTH_TIME":"1740493303","authenticators-completed":"{\\"e9d99147-452a-46b6-8647-7c9435c26a58\\":1740493303}"},"state":"LOGGED_IN"}	1740493690	\N	5
+311bbe0a-200a-4496-a8b8-86139add1115	1d445807-c24e-4513-884d-22451ce9cf67	3dae0dec-5d92-4955-af55-89d9c775206b	1740493729	0	{"ipAddress":"172.26.0.1","authMethod":"openid-connect","rememberMe":false,"started":0,"notes":{"KC_DEVICE_NOTE":"eyJpcEFkZHJlc3MiOiIxNzIuMjYuMC4xIiwib3MiOiJMaW51eCIsIm9zVmVyc2lvbiI6IlVua25vd24iLCJicm93c2VyIjoiRmlyZWZveC8xMzUuMCIsImRldmljZSI6Ik90aGVyIiwibGFzdEFjY2VzcyI6MCwibW9iaWxlIjpmYWxzZX0=","AUTH_TIME":"1740493729","authenticators-completed":"{\\"b7dd0af2-33d2-404c-ba52-3d6ff9a2db14\\":1740493729,\\"679f0551-9bb2-46b3-9890-be39eb45d0fd\\":1740494237}"},"state":"LOGGED_IN"}	1740494237	\N	2
+311bbe0a-200a-4496-a8b8-86139add1115	1d445807-c24e-4513-884d-22451ce9cf67	3dae0dec-5d92-4955-af55-89d9c775206b	1740493729	1	{"ipAddress":"172.26.0.1","authMethod":"openid-connect","rememberMe":false,"started":0,"notes":{"KC_DEVICE_NOTE":"eyJpcEFkZHJlc3MiOiIxNzIuMjYuMC4xIiwib3MiOiJMaW51eCIsIm9zVmVyc2lvbiI6IlVua25vd24iLCJicm93c2VyIjoiRmlyZWZveC8xMzUuMCIsImRldmljZSI6Ik90aGVyIiwibGFzdEFjY2VzcyI6MCwibW9iaWxlIjpmYWxzZX0=","AUTH_TIME":"1740493729","authenticators-completed":"{\\"b7dd0af2-33d2-404c-ba52-3d6ff9a2db14\\":1740493729}"},"state":"LOGGED_IN"}	1740494237	\N	2
 \.
 
 
@@ -3402,6 +3407,7 @@ COPY public.user_consent_client_scope (user_consent_id, scope_id) FROM stdin;
 
 COPY public.user_entity (id, email, email_constraint, email_verified, enabled, federation_link, first_name, last_name, realm_id, username, created_timestamp, service_account_client_link, not_before) FROM stdin;
 5addde5e-fc0d-4716-bb94-47bdd9e711c4	\N	6725582d-cbf1-4627-bb05-e05237a51296	f	t	\N	\N	\N	767d9b8d-d1e0-46e8-8336-872e7ee443dd	admin	1740481503286	\N	0
+1d445807-c24e-4513-884d-22451ce9cf67	polito@polito.it	polito@polito.it	t	t	\N	polito	polito	3dae0dec-5d92-4955-af55-89d9c775206b	polito	1740493708847	\N	0
 \.
 
 
@@ -3460,6 +3466,7 @@ COPY public.user_required_action (user_id, required_action) FROM stdin;
 COPY public.user_role_mapping (role_id, user_id) FROM stdin;
 cede3fb9-55db-49b4-a1ab-e107fd07dc5a	5addde5e-fc0d-4716-bb94-47bdd9e711c4
 34bda9d2-2e2a-450d-8cea-d6444a0e8df6	5addde5e-fc0d-4716-bb94-47bdd9e711c4
+0c97ab63-82ea-4743-8749-7ea17ed95d1c	1d445807-c24e-4513-884d-22451ce9cf67
 \.
 
 

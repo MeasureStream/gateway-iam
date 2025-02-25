@@ -28,7 +28,7 @@ spring:
             predicates:
               - Path=/
             filters:
-              - RedirectTo=301,http://localhost:8080/ui
+              - RedirectTo=301,http://localhost:8080/
 
           #LAB 2 crm
           - id: messages
@@ -77,7 +77,7 @@ spring:
       client:
         provider:
           keycloak:
-            issuer-uri: http://localhost:8081/realms/realm1
+            issuer-uri: http://localhost:8081/realms/measurestream
         registration:
           iamclient1:
             provider: keycloak

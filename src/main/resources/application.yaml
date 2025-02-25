@@ -81,13 +81,13 @@ spring:
         registration:
           iamclient1:
             provider: keycloak
-            client-id: iamclient1
-            client-secret: d7aEnuigVr88OVAjYfPzDJFvqZsJrZrL
+            client-id: gateway
+            client-secret: i3KBTdwpup1nlOEJBNtQHTjFqiycCNQ4
             scope:
               - openid
               - offline_access
             authorization-grant-type: authorization_code
-            redirect-uri: http://localhost:8080/login/oauth2/code/iamclient1
+            redirect-uri: http://localhost:8080/login/oauth2/code/gateway
   servlet:
     multipart:
       enabled: true

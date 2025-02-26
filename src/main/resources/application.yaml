@@ -9,10 +9,24 @@ spring:
           type: autodetect
         routes:
           #LAB 1 document_store
-          - id: sensor-manager
+          - id: sensor-manager-nodes
             uri: http://172.20.0.10:8080
             predicates:
               - Path=/API/nodes/**
+            filters:
+              - TokenRelay
+
+          - id: sensor-manager-measurementunit
+            uri: http://172.20.0.10:8080
+            predicates:
+              - Path=/API/measurementunits/**
+            filters:
+              - TokenRelay
+
+          - id: sensor-manager-controlunits
+            uri: http://172.20.0.10:8080
+            predicates:
+              - Path=/API/controlunits/**
             filters:
               - TokenRelay
 
@@ -50,14 +64,8 @@ spring:
       max-request-size: -1
 
 
-keycloak:
-  datasource:
-    url: jdbc:postgresql://keycloak-db/keycloak
-    username: keycloak
-    password: keycloakpassword
-    driver-class-name: org.postgresql.Driver
-    hikari:
-      maximum-pool-size: 10
+
 
 server:
   max-http-request-header-size: 1MB
+  port: 8080

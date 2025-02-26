@@ -22,7 +22,7 @@ import java.util.function.Supplier
 @Configuration
 class SecurityConfig (val crr: ClientRegistrationRepository){
     fun oidcLogoutSuccessHandler() = OidcClientInitiatedLogoutSuccessHandler(crr)
-        .also {it.setPostLogoutRedirectUri("http://localhost:8080")}
+        .also {it.setPostLogoutRedirectUri("http://localhost:8080/")}
 
     @Bean
     fun securityFilterChain(http: HttpSecurity): SecurityFilterChain {

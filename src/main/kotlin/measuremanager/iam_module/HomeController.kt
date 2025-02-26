@@ -1,19 +1,10 @@
 package measuremanager.iam_module
 
-import jakarta.transaction.Transactional
-import org.keycloak.admin.client.CreatedResponseUtil
-import org.keycloak.admin.client.resource.RealmResource
-import org.keycloak.admin.client.resource.UserResource
-import org.springframework.http.HttpEntity
-import org.springframework.http.HttpHeaders
-import org.springframework.http.MediaType
-import org.springframework.http.ResponseEntity
+
 import org.springframework.security.core.Authentication
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.security.oauth2.core.oidc.user.OidcUser
 import org.springframework.web.bind.annotation.*
-import org.springframework.web.client.RestTemplate
-import java.net.URI
 import java.time.LocalDateTime
 
 
@@ -45,7 +36,7 @@ class HomeController() {
     @GetMapping("/login-options","/login-options/")
     fun loginOptions(): List<String>{
         val path = "http://localhost:8080"
-        return listOf("${path}/oauth2/authorization/iam1client", "${path}/login/", "${path}/secure")
+        return listOf("${path}/oauth2/authorization/measurestream", "${path}/login/", "${path}/secure")
     }
 
     @GetMapping("/me")
@@ -54,7 +45,7 @@ class HomeController() {
         val name = principal?.preferredUsername ?: ""
         val securityContext: Any = SecurityContextHolder.getContext().authentication.principal
         return mapOf("name" to name,
-            "loginUrl" to "/oauth2/authorization/iam1client",
+            "loginUrl" to "/oauth2/authorization/measurestream",
             "logoutUrl" to "/logout",
             "principal" to principal,
             "xsrfToken" to xsrf,

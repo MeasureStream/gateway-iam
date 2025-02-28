@@ -56,7 +56,7 @@ services:
     expose:
       - '8080'
     environment:
-      - 'SPRING_DATA_MONGODB_URI=mongodb://root:secret@172.20.0.23:27017/mydatabase'
+      - 'SPRING_DATA_MONGODB_URI=mongodb://root:secret@172.20.0.23:27017/mydatabase?authSource=admin'
     networks:
       app_network:
         ipv4_address: 172.20.0.11

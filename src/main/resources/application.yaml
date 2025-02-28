@@ -30,6 +30,13 @@ spring:
             filters:
               - TokenRelay
 
+          - id: measure-manager
+            uri: http://172.20.0.11:8080
+            predicates:
+              - Path=/API/measures/**
+            filters:
+              - TokenRelay
+
           #FRONTEND
           - id: frontend
             #uri: http://172.20.0.8:5173

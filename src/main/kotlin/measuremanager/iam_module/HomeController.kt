@@ -5,11 +5,15 @@ import org.springframework.security.core.Authentication
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.security.oauth2.core.oidc.user.OidcUser
 import org.springframework.web.bind.annotation.*
+import org.springframework.web.client.RestTemplate
 import java.time.LocalDateTime
 
 
 @RestController
-class HomeController() {
+class HomeController(
+
+    private val restTemplate: RestTemplate
+) {
 
     @GetMapping("","/")
     fun home() : Map<String, Any?>

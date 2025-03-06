@@ -12,7 +12,7 @@ import java.time.LocalDateTime
 @RestController
 class HomeController(
 
-    private val restTemplate: RestTemplate
+
 ) {
 
     @GetMapping("","/")
@@ -40,7 +40,7 @@ class HomeController(
     @GetMapping("/login-options","/login-options/")
     fun loginOptions(): List<String>{
         val path = "http://localhost:8080"
-        return listOf("${path}/oauth2/authorization/measurestream", "${path}/login/", "${path}/secure")
+        return listOf("${path}/oauth2/authorization/gateway", "${path}/login/", "${path}/secure")
     }
 
     @GetMapping("/me")
@@ -49,7 +49,7 @@ class HomeController(
         val name = principal?.preferredUsername ?: ""
         val securityContext: Any = SecurityContextHolder.getContext().authentication.principal
         return mapOf("name" to name,
-            "loginUrl" to "/oauth2/authorization/measurestream",
+            "loginUrl" to "/oauth2/authorization/gateway",
             "logoutUrl" to "/logout",
             "principal" to principal,
             "xsrfToken" to xsrf,

@@ -1,7 +1,7 @@
 #Restore keycloak volume from keycloak-backup.sql
 
 docker volume rm gateway-iam_keycloak-db-data
-docker compose  keycloak-db up -d
+docker compose  up keycloak-db -d
 cat keycloak-backup.sql | docker exec -i gateway-iam-keycloak-db-1  psql -U keycloak -d keycloak
 docker compose up -d
 

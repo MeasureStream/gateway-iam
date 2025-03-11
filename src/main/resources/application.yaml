@@ -44,7 +44,8 @@ spring:
           - id: frontend
             #uri: http://172.20.0.8:5173
             #uri: http://localhost:5173
-            uri: http://localhost:5173
+            #uri: http://localhost:5173
+            uri: http://172.20.0.1:5173
             predicates:
               - Path=/ui/**
 

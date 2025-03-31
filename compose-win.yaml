@@ -17,11 +17,12 @@ services:
     depends_on:
       - postgres
     expose:
-      - '8080'
+      - '8082:8080'
     environment:
       - 'SPRING_DATASOURCE_URL=jdbc:postgresql://postgres/mydatabase'
       - 'SPRING_DATASOURCE_USERNAME=myuser'
       - 'SPRING_DATASOURCE_PASSWORD=secret'
+      - 'SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI=http://keycloak:8080/realms/measurestream'
     networks:
       app_network:
         ipv4_address: 172.20.0.10
@@ -53,10 +54,11 @@ services:
     depends_on:
       mongodb:
         condition: service_healthy
-    expose:
-      - '8080'
+    ports:
+      - '8081:8080'
     environment:
       - 'SPRING_DATA_MONGODB_URI=mongodb://root:secret@172.20.0.23:27017/mydatabase?authSource=admin'
+      - 'SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI=http://keycloak:8080/realms/measurestream'
     networks:
       app_network:
         ipv4_address: 172.20.0.11
@@ -86,8 +88,8 @@ services:
       - 'KC_DB_URL=jdbc:postgresql://keycloak-db/keycloak'
       - 'KC_DB_USERNAME=keycloak'
       - 'KC_DB_PASSWORD=keycloakpassword'
-    expose:
-      - '8080'
+    ports:
+      - '8090:8080'
     command: [ "start-dev" ]
     networks:
       app_network:

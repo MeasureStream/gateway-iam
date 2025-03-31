@@ -9,3 +9,8 @@ docker compose up -d
 #Create a keycloak-backup.sql file
 docker exec gateway-iam-keycloak-db-1 pg_dump -U keycloak -d keycloak > keycloak-backup.sql
 
+# run from Windows
+docker compose -f .\compose-win.yaml up -d
+
+# run from Linux
+docker compose up -d

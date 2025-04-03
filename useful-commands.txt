@@ -9,8 +9,18 @@ docker compose up -d
 #Create a keycloak-backup.sql file
 docker exec gateway-iam-keycloak-db-1 pg_dump -U keycloak -d keycloak > keycloak-backup.sql
 
-# run from Windows
-docker compose -f .\compose-win.yaml up -d
+#run the compose file on windows
+docker compose -f compose-win.yaml up -d
 
-# run from Linux
-docker compose up -d
+
+
+curl -X POST "http://172.20.0.22:8080/realms/measurestream/protocol/openid-connect/token" \
+     -H "Content-Type: application/x-www-form-urlencoded" \
+     -d "client_id=grafana" \
+     -d "client_secret=hO9y1s1uyjC8ZaXuKhCjhxhr8RxhvxeA" \
+     -d "grant_type=client_credentials"
+
+#Backup Grafana Configuration
+docker cp gateway-iam-grafana-1:/var/lib/grafana grafana-backup/ && zip -r grafana-backup.zip grafana-backup/  && rm -rf grafana-backup/
+#Restore Grafana Configuration
+unzip grafana-backup.zip && docker cp grafana-backup/ gateway-iam-grafana-1:/var/lib/grafana

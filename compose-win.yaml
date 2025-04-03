@@ -7,7 +7,7 @@ services:
       - 'POSTGRES_PASSWORD=secret'
       - 'POSTGRES_USER=myuser'
     ports:
-      - '5432:5432'
+      - '5432'
     networks:
       app_network:
         ipv4_address: 172.20.0.20
@@ -16,12 +16,13 @@ services:
     image: 'docker.io/christiand9699/sensor-manager:0.0.1-SNAPSHOT'
     depends_on:
       - postgres
-    ports:
-      - '8081:8080'
+    expose:
+      - '8082:8080'
     environment:
       - 'SPRING_DATASOURCE_URL=jdbc:postgresql://postgres/mydatabase'
       - 'SPRING_DATASOURCE_USERNAME=myuser'
       - 'SPRING_DATASOURCE_PASSWORD=secret'
+      - 'SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI=http://keycloak:8080/realms/measurestream'
     networks:
       app_network:
         ipv4_address: 172.20.0.10
@@ -54,9 +55,10 @@ services:
       mongodb:
         condition: service_healthy
     ports:
-      - '8082:8080'
+      - '8081:8080'
     environment:
       - 'SPRING_DATA_MONGODB_URI=mongodb://root:secret@172.20.0.23:27017/mydatabase?authSource=admin'
+      - 'SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI=http://keycloak:8080/realms/measurestream'
     networks:
       app_network:
         ipv4_address: 172.20.0.11
@@ -99,6 +101,38 @@ services:
       start_period: 5s
       timeout: 2s
 
+  grafana:
+    image: grafana/grafana-enterprise
+    restart: always
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - /var/lib/grafana/plugins
+    ports:
+      - 3000:3000
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+      - GF_INSTALL_PLUGINS=yesoreyeram-infinity-datasource
+    networks:
+      app_network:
+        ipv4_address: 172.20.0.30
+
+#  grafana:
+#    build:
+#      context: .
+#      dockerfile: DockerfileGrafana
+#    restart: always
+#    volumes:
+#      - ./data:/var/lib/grafana
+#      - /var/lib/grafana/plugins
+#    ports:
+#      - 3000:3000
+# Esponi la porta 3000 per accedere a Grafana
+#    networks:
+#      app_network:
+#        ipv4_address: 172.20.0.30
+
+
 #  frontend:
 #    image: frontend:latest
 #    ports:
@@ -118,6 +152,7 @@ volumes:
   postgres-data:
   keycloak-db-data:
   mongo_data:
+  grafana_data:
 
 networks:
   app_network:

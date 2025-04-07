@@ -16,13 +16,13 @@ services:
     image: 'docker.io/christiand9699/sensor-manager:0.0.1-SNAPSHOT'
     depends_on:
       - postgres
-    expose:
+    ports:
       - '8082:8080'
     environment:
       - 'SPRING_DATASOURCE_URL=jdbc:postgresql://postgres/mydatabase'
       - 'SPRING_DATASOURCE_USERNAME=myuser'
       - 'SPRING_DATASOURCE_PASSWORD=secret'
-      - 'SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI=http://keycloak:8080/realms/measurestream'
+      - 'SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI=http://localhost:8090/realms/measurestream'
     networks:
       app_network:
         ipv4_address: 172.20.0.10
@@ -58,7 +58,7 @@ services:
       - '8081:8080'
     environment:
       - 'SPRING_DATA_MONGODB_URI=mongodb://root:secret@172.20.0.23:27017/mydatabase?authSource=admin'
-      - 'SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI=http://keycloak:8080/realms/measurestream'
+      - 'SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI=http://localhost:8090/realms/measurestream'
     networks:
       app_network:
         ipv4_address: 172.20.0.11

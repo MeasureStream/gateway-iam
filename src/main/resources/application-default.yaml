@@ -57,6 +57,13 @@ spring:
             filters:
               - RedirectTo=301,http://localhost:8080/ui
 
+          - id: grafana
+            uri: http://localhost:3000
+            predicates:
+              - Path=/grafana/**
+            filters:
+              - StripPrefix=1
+              - RemoveResponseHeader=X-Frame-Options
 
 
         form-filter:
@@ -90,3 +97,10 @@ spring:
 server:
   max-http-request-header-size: 1MB
   port: 8080
+
+
+#logging:
+#  level:
+#    root: DEBUG
+#    org.springframework.web: DEBUG
+#    org.springframework.cloud.gateway: DEBUG

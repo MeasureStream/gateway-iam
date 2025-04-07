@@ -24,3 +24,8 @@ curl -X POST "http://172.20.0.22:8080/realms/measurestream/protocol/openid-conne
 docker cp gateway-iam-grafana-1:/var/lib/grafana grafana-backup/ && zip -r grafana-backup.zip grafana-backup/  && rm -rf grafana-backup/
 #Restore Grafana Configuration
 unzip grafana-backup.zip && docker cp grafana-backup/ gateway-iam-grafana-1:/var/lib/grafana
+
+
+
+
+docker exec -t gateway-iam-postgres-1 pg_dump -U myuser -s -d mydatabase > schema1.sql

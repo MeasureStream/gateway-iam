@@ -111,6 +111,9 @@ services:
       - GF_SECURITY_ADMIN_USER=admin
       - GF_SECURITY_ADMIN_PASSWORD=admin
       - GF_INSTALL_PLUGINS=yesoreyeram-infinity-datasource
+      - GF_SECURITY_ALLOW_EMBEDDING=true
+        GF_SECURITY_COOKIE_SAMESITE=none
+
     networks:
       app_network:
         ipv4_address: 172.20.0.30

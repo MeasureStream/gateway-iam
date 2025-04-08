@@ -1,3 +1,5 @@
+GRAFANA_API_KEY: glsa_zZfUU4YUJbTAE2SR7PqkY35nk2ZiLJbW_229bacdd
+
 spring:
   application:
     name: iam_module
@@ -45,7 +47,8 @@ spring:
           - id: frontend
             #uri: http://172.20.0.8:5173
             #uri: http://localhost:5173
-            uri: http://localhost:5173
+            #uri: http://localhost:5173
+            uri: http://172.20.0.12:5173
             #uri: http://172.20.0.1:5173
             predicates:
               - Path=/ui/**
@@ -64,6 +67,7 @@ spring:
             filters:
               - StripPrefix=1
               - RemoveResponseHeader=X-Frame-Options
+              -  AddRequestHeader=Authorization, Bearer ${GRAFANA_API_KEY}
 
 
         form-filter:

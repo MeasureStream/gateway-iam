@@ -35,5 +35,5 @@ jobs:
         with:
           context: .
           push: true
-          tags: christiand9699/gateway-iam1:latest
+          tags: christiand9699/gateway-iam:latest
           platforms: linux/amd64,linux/arm64

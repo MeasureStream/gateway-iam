@@ -30,6 +30,7 @@ class SecurityConfig (val crr: ClientRegistrationRepository){
         return http.authorizeHttpRequests{
             it.requestMatchers("/me","/","/login","/logout", "/login/", "/logout/", "/user/me", "/user/me/", "/ui/**","/login-options/", "/login-options", "/signup").permitAll()
             it.requestMatchers("/actuator/**").permitAll()
+            it.requestMatchers("/grafana/**").permitAll()
             it.requestMatchers("/secure").authenticated()
             it.requestMatchers("/anon").anonymous()
             it.anyRequest().authenticated()

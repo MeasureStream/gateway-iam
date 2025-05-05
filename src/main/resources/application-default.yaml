@@ -14,23 +14,35 @@ spring:
         routes:
           #LAB 1 document_store
           - id: sensor-manager-nodes
-            uri: http://172.20.0.10:8080
+            uri: http://localhost:8081
+            #uri: http://172.20.0.10:8080
             #uri: http://sensor-manager:8080
             predicates:
               - Path=/API/nodes/**
             filters:
               - TokenRelay
 
+          #LAB 1 document_store
+          - id: sensor-manager-dcc
+            uri: http://localhost:8081
+            #uri: http://sensor-manager:8080
+            predicates:
+              - Path=/API/dcc/**
+            filters:
+              - TokenRelay
+
 
           - id: sensor-manager-measurementunit
-            uri: http://172.20.0.10:8080
+            #uri: http://172.20.0.10:8080
+            uri: http://localhost:8081
             predicates:
               - Path=/API/measurementunits/**
             filters:
               - TokenRelay
 
           - id: sensor-manager-controlunits
-            uri: http://172.20.0.10:8080
+            #uri: http://172.20.0.10:8080
+            uri: http://localhost:8081
             predicates:
               - Path=/API/controlunits/**
             filters:
@@ -73,6 +85,7 @@ spring:
 
         form-filter:
           enabled: false
+
   security:
     oauth2:
       client:

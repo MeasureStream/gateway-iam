@@ -1,19 +1,27 @@
 package measuremanager.iam_module
 
 
+import jakarta.servlet.http.HttpServletRequest
+import org.springframework.core.io.InputStreamResource
+import org.springframework.http.HttpEntity
+import org.springframework.http.HttpHeaders
+import org.springframework.http.MediaType
+import org.springframework.http.ResponseEntity
 import org.springframework.security.core.Authentication
 import org.springframework.security.core.context.SecurityContextHolder
+import org.springframework.security.oauth2.client.OAuth2AuthorizedClient
+import org.springframework.security.oauth2.client.annotation.RegisteredOAuth2AuthorizedClient
 import org.springframework.security.oauth2.core.oidc.user.OidcUser
+import org.springframework.util.LinkedMultiValueMap
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.client.RestTemplate
+import org.springframework.web.multipart.MultipartFile
+import java.io.InputStream
 import java.time.LocalDateTime
 
 
 @RestController
-class HomeController(
-
-
-) {
+class HomeController(private val restTemplate: RestTemplate) {
 
     @GetMapping("","/")
     fun home() : Map<String, Any?>
@@ -58,6 +66,58 @@ class HomeController(
 
 
     }
+/*
+    @PostMapping("/API/pdf/")
+    fun upload(@RequestParam("file") file: MultipartFile, request: HttpServletRequest): ResponseEntity<String> {
+        println("file: $file")
+
+        val url = "http://localhost:8081/API/dcc/"  // URL del microservizio
+
+        val headers = HttpHeaders()
+        headers.contentType = MediaType.MULTIPART_FORM_DATA
+
+        // Inoltra il token Authorization se presente nella richiesta
+        val authHeader = request.getHeader("Authorization")
+        if (authHeader != null) {
+            headers.set("Authorization", authHeader)
+        }
+
+        val cookieHeader = request.getHeader("Cookie")
+        if (cookieHeader != null) {
+            headers.set("Cookie", cookieHeader)
+        }
+
+        val body = LinkedMultiValueMap<String, Any>()
+        body.add("file", MultipartInputStreamFileResource(file.inputStream, file.originalFilename!!))
+
+        val requestEntity = HttpEntity(body, headers)
+        val response = restTemplate.postForEntity(url, requestEntity, String::class.java)
+
+        return ResponseEntity.status(response.statusCode).body(response.body)
+    }
+    */
+
+    @PostMapping("/API/pdf/")
+    fun upload(
+        @RegisteredOAuth2AuthorizedClient("gateway") authorizedClient: OAuth2AuthorizedClient,
+        @RequestParam("file") file: MultipartFile
+    ): ResponseEntity<String> {
+
+        val url = "http://localhost:8081/API/dcc/"  // Microservizio
+
+        val headers = HttpHeaders()
+        headers.contentType = MediaType.MULTIPART_FORM_DATA
+        headers.setBearerAuth(authorizedClient.accessToken.tokenValue)  //  Token relay automatico
+
+        val body = LinkedMultiValueMap<String, Any>()
+        body.add("file", MultipartInputStreamFileResource(file.inputStream, file.originalFilename!!))
+
+        val requestEntity = HttpEntity(body, headers)
+        val response = restTemplate.postForEntity(url, requestEntity, String::class.java)
+
+        return ResponseEntity.status(response.statusCode).body(response.body)
+    }
+
     /*
     @GetMapping("/ruoli")
     fun ruoli() = roleService.findAll();
@@ -93,4 +153,13 @@ class HomeController(
             }
         }
     }*/
+}
+
+
+class MultipartInputStreamFileResource(
+    private val inputStream: InputStream,
+    private val filename: String
+) : InputStreamResource(inputStream) {
+    override fun getFilename(): String = filename
+    override fun contentLength(): Long = -1
 }

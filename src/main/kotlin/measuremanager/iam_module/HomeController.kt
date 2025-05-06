@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*
 import org.springframework.web.client.RestTemplate
 import org.springframework.web.multipart.MultipartFile
 import java.io.InputStream
+import java.time.LocalDate
 import java.time.LocalDateTime
 
 
@@ -100,17 +101,22 @@ class HomeController(private val restTemplate: RestTemplate) {
     @PostMapping("/API/pdf/")
     fun upload(
         @RegisteredOAuth2AuthorizedClient("gateway") authorizedClient: OAuth2AuthorizedClient,
-        @RequestParam("file") file: MultipartFile
+        @RequestParam("file") file: MultipartFile,
+        @RequestParam("muId") muId: Long,
+        @RequestParam("expiration") expiration: LocalDate
     ): ResponseEntity<String> {
 
-        val url = "http://localhost:8081/API/dcc/"  // Microservizio
+        //val url = "http://localhost:8081/API/dcc/"  // Microservizio
 
+        val url = "http://localhost:8081/API/dcc/$muId?expiration=$expiration"
+        println(url)
         val headers = HttpHeaders()
         headers.contentType = MediaType.MULTIPART_FORM_DATA
         headers.setBearerAuth(authorizedClient.accessToken.tokenValue)  //  Token relay automatico
 
         val body = LinkedMultiValueMap<String, Any>()
         body.add("file", MultipartInputStreamFileResource(file.inputStream, file.originalFilename!!))
+        println(file.originalFilename!!)
 
         val requestEntity = HttpEntity(body, headers)
         val response = restTemplate.postForEntity(url, requestEntity, String::class.java)

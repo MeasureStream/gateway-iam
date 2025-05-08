@@ -109,14 +109,14 @@ class HomeController(private val restTemplate: RestTemplate) {
         //val url = "http://localhost:8081/API/dcc/"  // Microservizio
 
         val url = "http://localhost:8081/API/dcc/$muId?expiration=$expiration"
-        println(url)
+        //println(url)
         val headers = HttpHeaders()
         headers.contentType = MediaType.MULTIPART_FORM_DATA
         headers.setBearerAuth(authorizedClient.accessToken.tokenValue)  //  Token relay automatico
 
         val body = LinkedMultiValueMap<String, Any>()
         body.add("file", MultipartInputStreamFileResource(file.inputStream, file.originalFilename!!))
-        println(file.originalFilename!!)
+        //println(file.originalFilename!!)
 
         val requestEntity = HttpEntity(body, headers)
         val response = restTemplate.postForEntity(url, requestEntity, String::class.java)

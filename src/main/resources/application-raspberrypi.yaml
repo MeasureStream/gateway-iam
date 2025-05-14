@@ -60,7 +60,7 @@ spring:
             predicates:
               - Path=/
             filters:
-              - RedirectTo=301,http://localhost:8080/ui
+              - RedirectTo=301,https://donald-herald-beneath-olive.trycloudflare.com:8080/ui
 
           - id: grafana
             uri: http://172.20.0.30:3000

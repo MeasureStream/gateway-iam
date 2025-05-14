@@ -12,30 +12,24 @@ spring:
         http-client:
           type: AUTODETECT
         routes:
-          #LAB 1 document_store
+
+
           - id: sensor-manager-nodes
-            #uri: http://localhost:8081
             uri: http://172.20.0.10:8080
-            #uri: http://sensor-manager:8080
             predicates:
               - Path=/API/nodes/**
             filters:
               - TokenRelay
 
-          #LAB 1 document_store
           - id: sensor-manager-dcc
-            #uri: http://localhost:8081
             uri: http://172.20.0.10:8080
-            #uri: http://sensor-manager:8080
             predicates:
               - Path=/API/dcc/**
             filters:
               - TokenRelay
 
-
           - id: sensor-manager-measurementunit
             uri: http://172.20.0.10:8080
-            #uri: http://localhost:8081
             predicates:
               - Path=/API/measurementunits/**
             filters:
@@ -43,7 +37,6 @@ spring:
 
           - id: sensor-manager-controlunits
             uri: http://172.20.0.10:8080
-            #uri: http://localhost:8081
             predicates:
               - Path=/API/controlunits/**
             filters:
@@ -58,11 +51,7 @@ spring:
 
           #FRONTEND
           - id: frontend
-            #uri: http://172.20.0.8:5173
-            #uri: http://localhost:5173
-            uri: http://localhost:5173
-            #uri: http://172.20.0.12:5173
-            #uri: http://172.20.0.1:5173
+            uri: http://172.20.0.12:80
             predicates:
               - Path=/ui/**
 
@@ -74,14 +63,13 @@ spring:
               - RedirectTo=301,http://localhost:8080/ui
 
           - id: grafana
-            uri: http://localhost:3000
+            uri: http://172.20.0.30:3000
             predicates:
               - Path=/grafana/**
             filters:
               - StripPrefix=1
               - RemoveResponseHeader=X-Frame-Options
-              #- AddRequestHeader=X-API-Key, ${GRAFANA_API_KEY}
-              #- TokenRelay
+
 
 
         form-filter:
@@ -93,7 +81,7 @@ spring:
         provider:
           keycloak:
             issuer-uri: http://172.20.0.22:8080/realms/measurestream
-            #issuer-uri: http://keycloak:8080/realms/measurestream
+
         registration:
           gateway:
             provider: keycloak

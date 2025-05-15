@@ -70,12 +70,12 @@ spring:
               - StripPrefix=1
               - RemoveResponseHeader=X-Frame-Options
 
-          - id: keycloak
-            uri: http://172.20.0.22:8080 # Keycloak in locale sulla 8081
-            predicates:
-              - Path=/auth/**
-            filters:
-              - StripPrefix=1
+          #- id: keycloak
+          #  uri: http://172.20.0.22:8080 # Keycloak in locale sulla 8081
+          #  predicates:
+          #    - Path=/auth/**
+          #  filters:
+          #    - StripPrefix=1
 
 
 
@@ -87,7 +87,7 @@ spring:
       client:
         provider:
           keycloak:
-            issuer-uri: https://christiandellisanti.uk/auth/realms/measurestream
+            issuer-uri: https://christiandellisanti.uk/realms/measurestream
 
         registration:
           gateway:

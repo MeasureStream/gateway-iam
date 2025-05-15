@@ -87,8 +87,8 @@ spring:
       client:
         provider:
           keycloak:
-            issuer-uri: https://christiandellisanti.uk/realms/measurestream
-            authorization-uri: https://christiandellisanti.uk/realms/measurestream/protocol/openid-connect/auth
+            issuer-uri: http://christiandellisanti.uk/realms/measurestream
+            authorization-uri: http://christiandellisanti.uk/realms/measurestream/protocol/openid-connect/auth
             token-uri: http://172.20.0.22:8080/realms/measurestream/protocol/openid-connect/token
             user-info-uri: http://172.20.0.22:8080/realms/measurestream/protocol/openid-connect/userinfo
             jwk-set-uri: http://172.20.0.22:8080/realms/measurestream/protocol/openid-connect/certs

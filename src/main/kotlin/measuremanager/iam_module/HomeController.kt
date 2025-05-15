@@ -2,6 +2,7 @@ package measuremanager.iam_module
 
 
 import jakarta.servlet.http.HttpServletRequest
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.core.io.InputStreamResource
 import org.springframework.http.HttpEntity
 import org.springframework.http.HttpHeaders
@@ -22,7 +23,10 @@ import java.time.LocalDateTime
 
 
 @RestController
-class HomeController(private val restTemplate: RestTemplate) {
+class HomeController(private val restTemplate: RestTemplate,
+    @Value("\${OS:default}")
+    private val OS: String
+) {
 
     @GetMapping("","/")
     fun home() : Map<String, Any?>
@@ -48,7 +52,8 @@ class HomeController(private val restTemplate: RestTemplate) {
 
     @GetMapping("/login-options","/login-options/")
     fun loginOptions(): List<String>{
-        val path = "http://localhost:8080"
+
+        val path = if(OS == "raspberrypi")  "https://christiandellisanti.uk" else  "http://localhost:8080"
         return listOf("${path}/oauth2/authorization/gateway", "${path}/login/", "${path}/secure")
     }
 
@@ -57,9 +62,10 @@ class HomeController(private val restTemplate: RestTemplate) {
         val principal :  OidcUser?  = authentication?.principal as OidcUser?
         val name = principal?.preferredUsername ?: ""
         val securityContext: Any = SecurityContextHolder.getContext().authentication.principal
+        val path = if(OS == "raspberrypi")  "https://christiandellisanti.uk" else  "http://localhost:8080"
         return mapOf("name" to name,
-            "loginUrl" to "/oauth2/authorization/gateway",
-            "logoutUrl" to "/logout",
+            "loginUrl" to "${path}/oauth2/authorization/gateway",
+            "logoutUrl" to "${path}/logout",
             "principal" to principal,
             "xsrfToken" to xsrf,
             "autorities" to SecurityContextHolder.getContext().authentication.authorities

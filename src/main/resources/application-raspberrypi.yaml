@@ -87,7 +87,7 @@ spring:
       client:
         provider:
           keycloak:
-            issuer-uri: https://christiandellisanti.uk/realms/measurestream
+            issuer-uri: http://christiandellisanti.uk/realms/measurestream
 
         registration:
           gateway:

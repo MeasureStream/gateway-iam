@@ -70,6 +70,13 @@ spring:
               - StripPrefix=1
               - RemoveResponseHeader=X-Frame-Options
 
+          - id: keycloak
+            uri: http://172.20.0.22:8080 # Keycloak in locale sulla 8081
+            predicates:
+              - Path=/auth/**
+            filters:
+              - StripPrefix=1
+
 
 
         form-filter:
@@ -80,7 +87,7 @@ spring:
       client:
         provider:
           keycloak:
-            issuer-uri: http://172.20.0.22:8080/realms/measurestream
+            issuer-uri: https://christiandellisanti.uk/auth/realms/measurestream
 
         registration:
           gateway:
@@ -91,7 +98,7 @@ spring:
               - openid
               - offline_access
             authorization-grant-type: authorization_code
-            redirect-uri: http://localhost:8080/login/oauth2/code/gateway
+            redirect-uri: https://christiandellisanti.uk/login/oauth2/code/gateway
   servlet:
     multipart:
       enabled: true

@@ -103,7 +103,7 @@ spring:
               - openid
               - offline_access
             authorization-grant-type: authorization_code
-            redirect-uri: https://auth.christiandellisanti.uk/login/oauth2/code/gateway
+            redirect-uri: https://www.christiandellisanti.uk/login/oauth2/code/gateway
   servlet:
     multipart:
       enabled: true

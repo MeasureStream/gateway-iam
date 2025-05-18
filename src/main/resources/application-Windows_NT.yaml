@@ -72,7 +72,7 @@ spring:
           gateway:
             provider: keycloak
             client-id: gateway
-            client-secret: i3KBTdwpup1nlOEJBNtQHTjFqiycCNQ4
+            client-secret: ${KEYCLOAK_GATEWAY_CLIENT_SECRET}
             scope:
               - openid
               - offline_access

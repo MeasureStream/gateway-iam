@@ -60,7 +60,7 @@ spring:
             predicates:
               - Path=/
             filters:
-              - RedirectTo=301,https://christiandellisanti.uk/ui
+              - RedirectTo=301,https://www.christiandellisanti.uk/ui
 
           - id: grafana
             uri: http://172.20.0.30:3000

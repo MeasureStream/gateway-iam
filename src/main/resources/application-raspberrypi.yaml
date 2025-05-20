@@ -63,12 +63,14 @@ spring:
               - RedirectTo=301,https://www.christiandellisanti.uk/ui
 
           - id: grafana
-            uri: http://172.20.0.30:3000
+            #uri: http://172.20.0.30:3000
+            uri: https://grafana.christiandellisanti.uk
             predicates:
               - Path=/grafana/**
             filters:
               - StripPrefix=1
               - RemoveResponseHeader=X-Frame-Options
+              - TokenRelay
 
           - id: kafka-rest
             uri: http://kafka-rest:8082
@@ -123,6 +125,8 @@ spring:
 server:
   max-http-request-header-size: 1MB
   port: 8080
+
+
 
 
 #logging:

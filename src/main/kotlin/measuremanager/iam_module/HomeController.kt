@@ -114,7 +114,7 @@ class HomeController(private val restTemplate: RestTemplate,
 
         //val url = "http://localhost:8081/API/dcc/"  // Microservizio
 
-        val url = "http://localhost:8081/API/dcc/$muId?expiration=$expiration"
+        val url = "http://172.20.0.10:8080/API/dcc/$muId?expiration=$expiration"
         //println(url)
         val headers = HttpHeaders()
         headers.contentType = MediaType.MULTIPART_FORM_DATA

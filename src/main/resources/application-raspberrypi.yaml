@@ -70,7 +70,7 @@ spring:
             filters:
               - StripPrefix=1
               - RemoveResponseHeader=X-Frame-Options
-              - TokenRelay
+              #- TokenRelay
 
           - id: kafka-rest
             uri: http://kafka-rest:8082

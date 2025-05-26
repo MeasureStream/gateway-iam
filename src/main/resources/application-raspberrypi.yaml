@@ -79,13 +79,27 @@ spring:
             filters:
               - StripPrefix=1
 
-          #- id: keycloak
-          #  uri: http://172.20.0.22:8080 # Keycloak in locale sulla 8081
-          #  predicates:
-          #    - Path=/auth/**
-          #  filters:
-          #    - StripPrefix=1
+          # Settings
+          - id: settings-command
+            uri: http://172.20.0.13:8080
+            predicates:
+              - Path=/API/command/**
+            filters:
+              - TokenRelay
 
+          - id: settings-cu
+            uri: http://172.20.0.13:8080
+            predicates:
+              - Path=/API/cu-setting/**
+            filters:
+              - TokenRelay
+
+          - id: settings-mu
+            uri: http://172.20.0.13:8080
+            predicates:
+              - Path=/API/mu-setting/**
+            filters:
+              - TokenRelay
 
 
         form-filter:

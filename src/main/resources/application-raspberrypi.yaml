@@ -28,6 +28,13 @@ spring:
             filters:
               - TokenRelay
 
+          - id: sensor-manager-user
+            uri: http://172.20.0.10:8080
+            predicates:
+              - Path=/API/user/**
+            filters:
+              - TokenRelay
+
           - id: sensor-manager-measurementunit
             uri: http://172.20.0.10:8080
             predicates:
@@ -70,6 +77,7 @@ spring:
             filters:
               - StripPrefix=1
               - RemoveResponseHeader=X-Frame-Options
+              #- AddResponseHeader=Content-Security-Policy,frame-ancestors 'self' https://www.christiandellisanti.uk
               #- TokenRelay
 
           - id: kafka-rest

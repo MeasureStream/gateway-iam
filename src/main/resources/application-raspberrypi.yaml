@@ -109,6 +109,20 @@ spring:
             filters:
               - TokenRelay
 
+          - id: calibrator-manager
+            uri: http://172.20.0.15:8080
+            predicates:
+              - Path=/API/calibrationunits/**
+            filters:
+              - TokenRelay
+
+          - id: calibrator-manager-1
+            uri: http://172.20.0.15:8080
+            predicates:
+              - Path=/API/calibrator/**
+            filters:
+              - TokenRelay
+
 
         form-filter:
           enabled: false

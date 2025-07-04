@@ -8,7 +8,7 @@ plugins {
 }
 
 group = "measuremanager"
-version = "1.0.0-alpha"
+version = "1.0.1-alpha"
 
 java {
     toolchain {
@@ -31,7 +31,7 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-oauth2-client")
     implementation("org.springframework.boot:spring-boot-starter-oauth2-resource-server")
     implementation("org.springframework.boot:spring-boot-starter-security")
-    implementation("org.springframework.security:spring-security-web:6.3.0")
+    implementation("org.springframework.security:spring-security-web:6.3.5")
     implementation("org.springframework.boot:spring-boot-starter-web:3.3.0")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("org.jetbrains.kotlin:kotlin-reflect")

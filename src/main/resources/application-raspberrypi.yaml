@@ -159,7 +159,7 @@ spring:
 
 
 server:
-  max-http-request-header-size: 1MB
+  max-http-request-header-size: 5MB
   port: 8080
 
 

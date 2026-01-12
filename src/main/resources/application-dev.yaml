@@ -124,12 +124,12 @@ spring:
       client:
         provider:
           keycloak:
-            issuer-uri: https://auth.christiandellisanti.uk/realms/measurestream
+            issuer-uri: https://auth.christiandellisanti.uk/realms/measurestream-dev
 
         registration:
           gateway:
             provider: keycloak
-            client-id: gateway
+            client-id: gateway-dev
             client-secret: ${KEYCLOAK_GATEWAY_CLIENT_SECRET}
             scope:
               - openid

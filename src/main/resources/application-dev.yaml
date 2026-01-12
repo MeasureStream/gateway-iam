@@ -1,0 +1,147 @@
+spring:
+  application:
+    name: iam_module
+  main:
+    web-application-type: servlet
+
+  cloud:
+    gateway:
+      mvc:
+        http-client:
+          type: AUTODETECT
+        routes:
+          - id: sensor-manager-nodes
+            uri: http://172.20.0.10:8080
+            predicates:
+              - Path=/API/nodes/**
+            filters:
+              - TokenRelay
+
+          - id: sensor-manager-dcc
+            uri: http://172.20.0.10:8080
+            predicates:
+              - Path=/API/dcc/**
+            filters:
+              - TokenRelay
+
+          - id: sensor-manager-user
+            uri: http://172.20.0.10:8080
+            predicates:
+              - Path=/API/user/**
+            filters:
+              - TokenRelay
+
+          - id: sensor-manager-measurementunit
+            uri: http://172.20.0.10:8080
+            predicates:
+              - Path=/API/measurementunits/**
+            filters:
+              - TokenRelay
+
+          - id: sensor-manager-controlunits
+            uri: http://172.20.0.10:8080
+            predicates:
+              - Path=/API/controlunits/**
+            filters:
+              - TokenRelay
+
+          - id: measure-manager
+            uri: http://172.20.0.11:8080
+            predicates:
+              - Path=/API/measures/**
+            filters:
+              - TokenRelay
+
+          #FRONTEND
+          - id: frontend
+            uri: http://172.20.0.12:80
+            predicates:
+              - Path=/ui/**
+
+          - id: home
+            uri: http://localhost:8080
+            predicates:
+              - Path=/
+            filters:
+              - RedirectTo=301,https://dev.christiandellisanti.uk/ui
+
+          - id: grafana
+            uri: https://grafana.christiandellisanti.uk
+            predicates:
+              - Path=/grafana/**
+            filters:
+              - StripPrefix=1
+              - RemoveResponseHeader=X-Frame-Options
+
+          - id: kafka-rest
+            uri: http://kafka-rest:8082
+            predicates:
+              - Path=/kafka-rest/**
+            filters:
+              - StripPrefix=1
+
+          # Settings
+          - id: settings-command
+            uri: http://172.20.0.13:8080
+            predicates:
+              - Path=/API/command/**
+            filters:
+              - TokenRelay
+
+          - id: settings-cu
+            uri: http://172.20.0.13:8080
+            predicates:
+              - Path=/API/cu-setting/**
+            filters:
+              - TokenRelay
+
+          - id: settings-mu
+            uri: http://172.20.0.13:8080
+            predicates:
+              - Path=/API/mu-setting/**
+            filters:
+              - TokenRelay
+
+          - id: calibrator-manager
+            uri: http://172.20.0.15:8080
+            predicates:
+              - Path=/API/calibrationunits/**
+            filters:
+              - TokenRelay
+
+          - id: calibrator-manager-1
+            uri: http://172.20.0.15:8080
+            predicates:
+              - Path=/API/calibrator/**
+            filters:
+              - TokenRelay
+
+        form-filter:
+          enabled: false
+
+  security:
+    oauth2:
+      client:
+        provider:
+          keycloak:
+            issuer-uri: https://auth.christiandellisanti.uk/realms/measurestream
+
+        registration:
+          gateway:
+            provider: keycloak
+            client-id: gateway
+            client-secret: ${KEYCLOAK_GATEWAY_CLIENT_SECRET}
+            scope:
+              - openid
+              - offline_access
+            authorization-grant-type: authorization_code
+            redirect-uri: https://dev.christiandellisanti.uk/login/oauth2/code/gateway
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: -1
+      max-request-size: -1
+
+server:
+  max-http-request-header-size: 5MB
+  port: 8080

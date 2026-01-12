@@ -62,7 +62,12 @@ class HomeController(private val restTemplate: RestTemplate,
         val principal :  OidcUser?  = authentication?.principal as OidcUser?
         val name = principal?.preferredUsername ?: ""
         val securityContext: Any = SecurityContextHolder.getContext().authentication.principal
-        val path = if(OS == "raspberrypi")  "https://www.christiandellisanti.uk" else  "http://localhost:8080"
+        //val path = if(OS == "raspberrypi")  "https://www.christiandellisanti.uk" else  "http://localhost:8080"
+        val  path = when(OS){
+          "raspberrypi" -> "https://www.christiandellisanti.uk"
+          "dev" -> "https://dev.christiandellisanti.uk"
+          else -> "http://localhost:8080"
+        }
         return mapOf("name" to name,
             "loginUrl" to "${path}/oauth2/authorization/gateway",
             "logoutUrl" to "${path}/logout",

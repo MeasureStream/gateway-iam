@@ -59,7 +59,7 @@ spring:
               - Path=/ui/**
 
           - id: frontend-dev
-            uri: http://localhost:5173
+            uri: http://169.254.144.159:5173
             predicates:
               - Path=/uidev/**
 

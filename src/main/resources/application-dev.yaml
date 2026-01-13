@@ -58,6 +58,11 @@ spring:
             predicates:
               - Path=/ui/**
 
+          - id: frontend-dev
+            uri: http://localhost:5173
+            predicates:
+              - Path=/uidev/**
+
           - id: home
             uri: http://localhost:8080
             predicates:

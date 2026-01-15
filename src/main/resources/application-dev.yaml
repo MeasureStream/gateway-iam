@@ -67,8 +67,7 @@ spring:
             uri: http://172.20.0.1:10000
             predicates:
               - Path=/dcc/**
-            filters:
-              - StripPrefix=1
+
 
           - id: home
             uri: http://localhost:8080

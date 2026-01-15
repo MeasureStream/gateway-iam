@@ -59,9 +59,14 @@ spring:
               - Path=/ui/**
 
           - id: frontend-dev
-            uri: http://169.254.144.159:5173
+            uri: http://host.docker.internal:5173
             predicates:
               - Path=/uidev/**
+
+          - id: frontend-gemimeg-dev
+            uri: http://host.docker.internal:10000
+            predicates:
+              - Path=/uidev2/**
 
           - id: home
             uri: http://localhost:8080

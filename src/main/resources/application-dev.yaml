@@ -10,17 +10,11 @@ spring:
         http-client:
           type: AUTODETECT
         routes:
+          # Sensor Manager Routes
           - id: sensor-manager-nodes
             uri: http://172.20.0.10:8080
             predicates:
               - Path=/API/nodes/**
-            filters:
-              - TokenRelay
-
-          - id: sensor-manager-dcc
-            uri: http://172.20.0.10:8080
-            predicates:
-              - Path=/API/dcc/**
             filters:
               - TokenRelay
 
@@ -45,6 +39,7 @@ spring:
             filters:
               - TokenRelay
 
+          # Measure Manager Routes
           - id: measure-manager
             uri: http://172.20.0.11:8080
             predicates:
@@ -52,11 +47,56 @@ spring:
             filters:
               - TokenRelay
 
-          #FRONTEND
+          # DCC Service Routes
+          - id: dcc-service
+            uri: http://172.20.0.14:8080
+            predicates:
+              - Path=/api/dcc/**
+            filters:
+              - TokenRelay
+
+          - id: dcc-service-mus
+            uri: http://172.20.0.14:8080
+            predicates:
+              - Path=/api/mus/**
+            filters:
+              - TokenRelay
+
+          - id: dcc-service-public
+            uri: http://172.20.0.14:8080
+            predicates:
+              - Path=/api/public/**
+
+          # Gemimeg Backend Routes
+          - id: gemimeg-backend
+            uri: http://172.20.0.129:10001
+            predicates:
+              - Path=/API/gemimeg/**
+            filters:
+              - TokenRelay
+
+          - id: gemimeg-backend-cache
+            uri: http://172.20.0.129:10001
+            predicates:
+              - Path=/API/cache/**
+            filters:
+              - TokenRelay
+
+          - id: gemimeg-backend-version
+            uri: http://172.20.0.129:10001
+            predicates:
+              - Path=/API/version/**
+
+          # Frontend Routes
           - id: frontend
             uri: http://172.20.0.12:80
             predicates:
               - Path=/ui/**
+
+          - id: gemimeg-frontend
+            uri: http://172.20.0.128:80
+            predicates:
+              - Path=/gemimeg/**
 
           - id: frontend-dev
             uri: http://172.20.0.1:5173
@@ -67,7 +107,6 @@ spring:
             uri: http://172.20.0.1:10000
             predicates:
               - Path=/gemimegdcc/**
-
 
           - id: home
             uri: http://localhost:8080
@@ -91,7 +130,7 @@ spring:
             filters:
               - StripPrefix=1
 
-          # Settings
+          # Settings Routes
           - id: settings-command
             uri: http://172.20.0.13:8080
             predicates:
@@ -113,6 +152,7 @@ spring:
             filters:
               - TokenRelay
 
+          # Calibrator Manager Routes
           - id: calibrator-manager
             uri: http://172.20.0.15:8080
             predicates:
@@ -147,6 +187,7 @@ spring:
               - offline_access
             authorization-grant-type: authorization_code
             redirect-uri: https://dev.christiandellisanti.uk/login/oauth2/code/gateway
+
   servlet:
     multipart:
       enabled: true

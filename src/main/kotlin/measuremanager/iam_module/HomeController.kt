@@ -78,62 +78,6 @@ class HomeController(private val restTemplate: RestTemplate,
 
 
     }
-/*
-    @PostMapping("/API/pdf/")
-    fun upload(@RequestParam("file") file: MultipartFile, request: HttpServletRequest): ResponseEntity<String> {
-        println("file: $file")
-
-        val url = "http://localhost:8081/API/dcc/"  // URL del microservizio
-
-        val headers = HttpHeaders()
-        headers.contentType = MediaType.MULTIPART_FORM_DATA
-
-        // Inoltra il token Authorization se presente nella richiesta
-        val authHeader = request.getHeader("Authorization")
-        if (authHeader != null) {
-            headers.set("Authorization", authHeader)
-        }
-
-        val cookieHeader = request.getHeader("Cookie")
-        if (cookieHeader != null) {
-            headers.set("Cookie", cookieHeader)
-        }
-
-        val body = LinkedMultiValueMap<String, Any>()
-        body.add("file", MultipartInputStreamFileResource(file.inputStream, file.originalFilename!!))
-
-        val requestEntity = HttpEntity(body, headers)
-        val response = restTemplate.postForEntity(url, requestEntity, String::class.java)
-
-        return ResponseEntity.status(response.statusCode).body(response.body)
-    }
-    */
-
-    @PostMapping("/API/pdf/")
-    fun upload(
-        @RegisteredOAuth2AuthorizedClient("gateway") authorizedClient: OAuth2AuthorizedClient,
-        @RequestParam("file") file: MultipartFile,
-        @RequestParam("muId") muId: Long,
-        @RequestParam("expiration") expiration: LocalDate
-    ): ResponseEntity<String> {
-
-        //val url = "http://localhost:8081/API/dcc/"  // Microservizio
-
-        val url = "http://172.20.0.10:8080/API/dcc/$muId?expiration=$expiration"
-        //println(url)
-        val headers = HttpHeaders()
-        headers.contentType = MediaType.MULTIPART_FORM_DATA
-        headers.setBearerAuth(authorizedClient.accessToken.tokenValue)  //  Token relay automatico
-
-        val body = LinkedMultiValueMap<String, Any>()
-        body.add("file", MultipartInputStreamFileResource(file.inputStream, file.originalFilename!!))
-        //println(file.originalFilename!!)
-
-        val requestEntity = HttpEntity(body, headers)
-        val response = restTemplate.postForEntity(url, requestEntity, String::class.java)
-
-        return ResponseEntity.status(response.statusCode).body(response.body)
-    }
 
     /*
     @GetMapping("/ruoli")

@@ -10,15 +10,20 @@ spring:
         http-client:
           type: AUTODETECT
         routes:
-          #LAB 1 document_store
+          # Sensor Manager Routes
           - id: sensor-manager-nodes
-            #uri: http://172.20.0.10:8080
             uri: http://localhost:8082
             predicates:
               - Path=/API/nodes/**
             filters:
               - TokenRelay
 
+          - id: sensor-manager-user
+            uri: http://localhost:8082
+            predicates:
+              - Path=/API/user/**
+            filters:
+              - TokenRelay
 
           - id: sensor-manager-measurementunit
             uri: http://localhost:8082
@@ -34,6 +39,7 @@ spring:
             filters:
               - TokenRelay
 
+          # Measure Manager Routes
           - id: measure-manager
             uri: http://localhost:8081
             predicates:
@@ -41,14 +47,56 @@ spring:
             filters:
               - TokenRelay
 
-          #FRONTEND
+          # DCC Service Routes
+          - id: dcc-service
+            uri: http://localhost:8084
+            predicates:
+              - Path=/api/dcc/**
+            filters:
+              - TokenRelay
+
+          - id: dcc-service-mus
+            uri: http://localhost:8084
+            predicates:
+              - Path=/api/mus/**
+            filters:
+              - TokenRelay
+
+          - id: dcc-service-public
+            uri: http://localhost:8084
+            predicates:
+              - Path=/api/public/**
+
+          # Gemimeg Backend Routes
+          - id: gemimeg-backend
+            uri: http://localhost:3007
+            predicates:
+              - Path=/API/gemimeg/**
+            filters:
+              - TokenRelay
+
+          - id: gemimeg-backend-cache
+            uri: http://localhost:3007
+            predicates:
+              - Path=/API/cache/**
+            filters:
+              - TokenRelay
+
+          - id: gemimeg-backend-version
+            uri: http://localhost:3007
+            predicates:
+              - Path=/API/version/**
+
+          # Frontend Routes
           - id: frontend
-            #uri: http://172.20.0.8:5173
-            #uri: http://localhost:5173
             uri: http://localhost:5173
-            #uri: http://172.20.0.1:5173
             predicates:
               - Path=/ui/**
+
+          - id: gemimeg-frontend
+            uri: http://localhost:3006
+            predicates:
+              - Path=/gemimeg/**
 
           - id: home
             uri: http://localhost:8080
@@ -57,16 +105,14 @@ spring:
             filters:
               - RedirectTo=301,http://localhost:8080/ui
 
-
-
         form-filter:
           enabled: false
+
   security:
     oauth2:
       client:
         provider:
           keycloak:
-            #issuer-uri: http://172.20.0.22:8080/realms/measurestream
             issuer-uri: http://localhost:8090/realms/measurestream
         registration:
           gateway:
@@ -78,15 +124,13 @@ spring:
               - offline_access
             authorization-grant-type: authorization_code
             redirect-uri: http://localhost:8080/login/oauth2/code/gateway
+
   servlet:
     multipart:
       enabled: true
       max-file-size: -1
       max-request-size: -1
 
-
-
-
 server:
-  max-http-request-header-size: 1MB
+  max-http-request-header-size: 5MB
   port: 8080

@@ -75,6 +75,21 @@ spring:
             filters:
               - TokenRelay
 
+          - id: gemimeg-api-v1
+            uri: http://172.20.0.129:10001
+            predicates:
+              - Path=/api/v1/**
+            filters:
+              - TokenRelay
+
+          - id: dcc-service-proxy
+            uri: http://172.20.0.14:8080
+            predicates:
+              - Path=/dcc-service/**
+            filters:
+              - StripPrefix=1
+              - TokenRelay
+
           - id: gemimeg-backend-cache
             uri: http://172.20.0.129:10001
             predicates:

@@ -10,7 +10,66 @@ spring:
         http-client:
           type: AUTODETECT
         routes:
-          # Sensor Manager Routes
+          # --- DCC Service Routes ---
+          # Specific API routes for dcc-service
+          - id: dcc-service-api
+            uri: http://172.20.0.14:8080
+            predicates:
+              - Path=/api/dcc/**
+            filters:
+              - TokenRelay
+
+          - id: dcc-service-mus
+            uri: http://172.20.0.14:8080
+            predicates:
+              - Path=/api/mus/**
+            filters:
+              - TokenRelay
+
+          - id: dcc-service-public
+            uri: http://172.20.0.14:8080
+            predicates:
+              - Path=/api/public/**
+
+          # Generic proxy for dcc-service (handles /verify-token, etc.)
+          - id: dcc-service-proxy
+            uri: http://172.20.0.14:8080
+            predicates:
+              - Path=/dcc-service/**
+            filters:
+              - StripPrefix=1
+              - TokenRelay
+
+          # --- Gemimeg Backend Routes ---
+          # Specific api/v1 route for Gemimeg
+          - id: gemimeg-api-v1
+            uri: http://172.20.0.129:10001
+            predicates:
+              - Path=/api/v1/**
+            filters:
+              - TokenRelay
+
+          # Other Gemimeg routes
+          - id: gemimeg-backend
+            uri: http://172.20.0.129:10001
+            predicates:
+              - Path=/API/gemimeg/**
+            filters:
+              - TokenRelay
+
+          - id: gemimeg-backend-cache
+            uri: http://172.20.0.129:10001
+            predicates:
+              - Path=/API/cache/**
+            filters:
+              - TokenRelay
+
+          - id: gemimeg-backend-version
+            uri: http://172.20.0.129:10001
+            predicates:
+              - Path=/API/version/**
+
+          # --- Sensor Manager Routes ---
           - id: sensor-manager-nodes
             uri: http://172.20.0.10:8080
             predicates:
@@ -39,7 +98,7 @@ spring:
             filters:
               - TokenRelay
 
-          # Measure Manager Routes
+          # --- Measure Manager Routes ---
           - id: measure-manager
             uri: http://172.20.0.11:8080
             predicates:
@@ -47,62 +106,7 @@ spring:
             filters:
               - TokenRelay
 
-          # DCC Service Routes
-          - id: dcc-service
-            uri: http://172.20.0.14:8080
-            predicates:
-              - Path=/api/dcc/**
-            filters:
-              - TokenRelay
-
-          - id: dcc-service-mus
-            uri: http://172.20.0.14:8080
-            predicates:
-              - Path=/api/mus/**
-            filters:
-              - TokenRelay
-
-          - id: dcc-service-public
-            uri: http://172.20.0.14:8080
-            predicates:
-              - Path=/api/public/**
-
-          # Gemimeg Backend Routes
-          - id: gemimeg-backend
-            uri: http://172.20.0.129:10001
-            predicates:
-              - Path=/API/gemimeg/**
-            filters:
-              - TokenRelay
-
-          - id: gemimeg-api-v1
-            uri: http://172.20.0.129:10001
-            predicates:
-              - Path=/api/v1/**
-            filters:
-              - TokenRelay
-
-          - id: dcc-service-proxy
-            uri: http://172.20.0.14:8080
-            predicates:
-              - Path=/dcc-service/**
-            filters:
-              - StripPrefix=1
-              - TokenRelay
-
-          - id: gemimeg-backend-cache
-            uri: http://172.20.0.129:10001
-            predicates:
-              - Path=/API/cache/**
-            filters:
-              - TokenRelay
-
-          - id: gemimeg-backend-version
-            uri: http://172.20.0.129:10001
-            predicates:
-              - Path=/API/version/**
-
-          # Frontend Routes
+          # --- Frontend Routes ---
           - id: frontend
             uri: http://172.20.0.12:80
             predicates:
@@ -145,7 +149,7 @@ spring:
             filters:
               - StripPrefix=1
 
-          # Settings Routes
+          # --- Settings Routes ---
           - id: settings-command
             uri: http://172.20.0.13:8080
             predicates:
@@ -167,7 +171,7 @@ spring:
             filters:
               - TokenRelay
 
-          # Calibrator Manager Routes
+          # --- Calibrator Manager Routes ---
           - id: calibrator-manager
             uri: http://172.20.0.15:8080
             predicates:

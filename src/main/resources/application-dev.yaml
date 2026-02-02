@@ -96,7 +96,7 @@ spring:
           - id: gemimeg-frontend
             uri: http://172.20.0.128:80
             predicates:
-              - Path=/gemimeg/**
+              - Path=/gemimegdcc/**
 
           - id: frontend-dev
             uri: http://172.20.0.1:5173
@@ -106,7 +106,7 @@ spring:
           - id: frontend-gemimeg-dev
             uri: http://172.20.0.1:10000
             predicates:
-              - Path=/gemimegdcc/**
+              - Path=/gemimeg/**
 
           - id: home
             uri: http://localhost:8080

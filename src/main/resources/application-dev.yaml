@@ -210,8 +210,8 @@ spring:
   servlet:
     multipart:
       enabled: true
-      max-file-size: -1
-      max-request-size: -1
+      max-file-size: 100000000
+      max-request-size: 100000000
 
 server:
   max-http-request-header-size: 5MB

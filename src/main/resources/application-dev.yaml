@@ -209,7 +209,7 @@ spring:
 
   servlet:
     multipart:
-      enabled: true
+      enabled: false
       max-file-size: 100000000
       max-request-size: 100000000
 

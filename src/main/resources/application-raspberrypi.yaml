@@ -129,6 +129,10 @@ spring:
 
   security:
     oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: https://auth.christiandellisanti.uk/realms/measurestream
+
       client:
         provider:
           keycloak:
@@ -138,6 +142,7 @@ spring:
             #user-info-uri: http://172.20.0.22:8080/realms/measurestream/protocol/openid-connect/userinfo
             #jwk-set-uri: http://172.20.0.22:8080/realms/measurestream/protocol/openid-connect/certs
             #user-name-attribute: preferred_username
+
 
         registration:
           gateway:
@@ -171,3 +176,4 @@ logging:
     org.springframework.web: DEBUG
     org.springframework.security.oauth2: DEBUG
     org.springframework.cloud.gateway: TRACE
+    org.springframework.security.oauth2.server.resource.authentication: DEBUG

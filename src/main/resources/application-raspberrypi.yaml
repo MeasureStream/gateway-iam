@@ -165,8 +165,9 @@ server:
 
 
 
-#logging:
-#  level:
-#    root: DEBUG
-#    org.springframework.web: DEBUG
-#    org.springframework.cloud.gateway: DEBUG
+logging:
+  level:
+    root: DEBUG
+    org.springframework.web: DEBUG
+    org.springframework.security.oauth2: DEBUG
+    org.springframework.cloud.gateway: TRACE

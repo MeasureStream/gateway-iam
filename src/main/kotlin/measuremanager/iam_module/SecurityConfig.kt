@@ -37,6 +37,9 @@ class SecurityConfig (val crr: ClientRegistrationRepository){
             it.anyRequest().authenticated()
         }
             .oauth2Login{}
+            .oauth2ResourceServer {
+                it.jwt { }
+            }
             .logout{it.logoutSuccessHandler(oidcLogoutSuccessHandler())}
             .addFilterAfter(CsrfCookieFilter(), BasicAuthenticationFilter::class.java)
             .csrf {

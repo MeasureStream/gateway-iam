@@ -56,6 +56,18 @@ spring:
             filters:
               - TokenRelay
 
+          - id: dcc-service-public
+            uri: http://172.20.0.14:8080
+            predicates:
+              - Path=/api/public/**
+
+          - id: dcc-service-api
+            uri: http://172.20.0.14:8080
+            predicates:
+              - Path=/api/dcc/**,/api/sensors,/api/calibrations/**
+            filters:
+              - TokenRelay
+
           #FRONTEND
           - id: frontend
             #uri: http://172.20.0.8:5173

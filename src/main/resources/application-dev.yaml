@@ -19,10 +19,17 @@ spring:
             filters:
               - TokenRelay
 
-          - id: dcc-service-mus
+          - id: dcc-service-sensors
             uri: http://172.20.0.14:8080
             predicates:
-              - Path=/api/mus/**
+              - Path=/api/sensors
+            filters:
+              - TokenRelay
+
+          - id: dcc-service-calibrations
+            uri: http://172.20.0.14:8080
+            predicates:
+              - Path=/api/calibrations/**
             filters:
               - TokenRelay
 

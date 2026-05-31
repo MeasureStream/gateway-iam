@@ -64,7 +64,7 @@ spring:
           - id: dcc-service-api
             uri: http://172.20.0.14:8080
             predicates:
-              - Path=/api/dcc/**,/api/sensors,/api/calibrations/**
+              - Path=/api/dcc/**,/api/sensors/**,/api/calibrations/**,/api/anagrafica/**
             filters:
               - TokenRelay
 

@@ -22,7 +22,7 @@ spring:
           - id: dcc-service-sensors
             uri: http://172.20.0.14:8080
             predicates:
-              - Path=/api/sensors
+              - Path=/api/sensors/**
             filters:
               - TokenRelay
 
@@ -30,6 +30,13 @@ spring:
             uri: http://172.20.0.14:8080
             predicates:
               - Path=/api/calibrations/**
+            filters:
+              - TokenRelay
+
+          - id: dcc-service-anagrafica
+            uri: http://172.20.0.14:8080
+            predicates:
+              - Path=/api/anagrafica/**
             filters:
               - TokenRelay
 

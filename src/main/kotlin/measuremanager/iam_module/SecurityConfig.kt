@@ -48,6 +48,7 @@ class SecurityConfig (val crr: ClientRegistrationRepository){
                     val authHeader = request.getHeader("Authorization")
                     authHeader != null && authHeader.startsWith("Bearer ")
                 })
+                it.ignoringRequestMatchers("/api/**")
                 it.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
                 it.csrfTokenRequestHandler(SpaCsrfTokenRequestHandler())
             }

@@ -55,6 +55,27 @@ spring:
             filters:
               - TokenRelay
 
+          - id: dcc-service-sensors
+            uri: http://localhost:8084
+            predicates:
+              - Path=/api/sensors/**
+            filters:
+              - TokenRelay
+
+          - id: dcc-service-calibrations
+            uri: http://localhost:8084
+            predicates:
+              - Path=/api/calibrations/**
+            filters:
+              - TokenRelay
+
+          - id: dcc-service-anagrafica
+            uri: http://localhost:8084
+            predicates:
+              - Path=/api/anagrafica/**
+            filters:
+              - TokenRelay
+
           - id: dcc-service-mus
             uri: http://localhost:8084
             predicates:

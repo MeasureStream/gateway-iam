@@ -34,6 +34,15 @@ spring:
             filters:
               - TokenRelay
 
+          # Registro dei template: la lettura e' per ogni utente autenticato, la
+          # pubblicazione la fa la CI con un token dell'account di servizio.
+          - id: sensor-manager-templates
+            uri: http://localhost:8082
+            predicates:
+              - Path=/API/templates,/API/templates/**
+            filters:
+              - TokenRelay
+
           - id: measure-manager
             uri: http://localhost:8081
             predicates:

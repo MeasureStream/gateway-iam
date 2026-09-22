@@ -43,6 +43,14 @@ spring:
             filters:
               - TokenRelay
 
+          # Dizionario di protocollo: scale dei periodi, sentinelle, codici.
+          - id: sensor-manager-protocol
+            uri: http://localhost:8082
+            predicates:
+              - Path=/API/protocol,/API/protocol/**
+            filters:
+              - TokenRelay
+
           - id: measure-manager
             uri: http://localhost:8081
             predicates:

@@ -37,20 +37,22 @@ class SecurityConfig (val crr: ClientRegistrationRepository){
             it.requestMatchers("/anon").anonymous()
             it.anyRequest().authenticated()
         }
-            /*
-             * Dopo il login si atterra SEMPRE nell'interfaccia.
-             *
-             * Senza questa riga vale il comportamento predefinito di Spring Security: la
-             * richiesta che ha fatto scattare l'autenticazione viene messa da parte in
-             * sessione e riproposta a login fatto, con l'aggiunta del marcatore `continue`.
-             * Se quella richiesta era una chiamata del frontend (tipicamente
-             * `GET /API/protocol` all'avvio della pagina), l'utente si ritrovava su
-             * `/API/protocol?continue` — JSON al posto dell'applicazione.
-             *
-             * `alwaysUse = true` ignora la richiesta salvata. Non si perde nulla: le rotte
-             * della SPA (`/ui/**`) sono `permitAll`, quindi un link profondo non passa mai
-             * di qui, e le chiamate API le rifà il frontend appena montato.
-             */
+            // Dopo il login si atterra SEMPRE nell'interfaccia.
+            //
+            // Senza il secondo parametro vale il comportamento predefinito di Spring
+            // Security: la richiesta che ha fatto scattare l'autenticazione viene messa da
+            // parte in sessione e riproposta a login fatto, con l'aggiunta del marcatore
+            // "continue". Se quella richiesta era una chiamata del frontend (tipicamente
+            // GET /API/protocol all'avvio della pagina), l'utente si ritrovava su
+            // /API/protocol?continue, cioe' JSON al posto dell'applicazione.
+            //
+            // alwaysUse = true ignora la richiesta salvata. Non si perde nulla: le rotte
+            // della SPA sono permitAll, quindi un link profondo non passa mai di qui, e le
+            // chiamate API le rifa' il frontend appena montato.
+            //
+            // NB: commenti di riga e non a blocco. In Kotlin i commenti /* */ si ANNIDANO,
+            // e un percorso con la stella doppia scritto qui dentro aprirebbe un commento
+            // interno lasciando aperto quello esterno.
             .oauth2Login{ it.defaultSuccessUrl("/ui", true) }
             .oauth2ResourceServer {
                 it.jwt { }

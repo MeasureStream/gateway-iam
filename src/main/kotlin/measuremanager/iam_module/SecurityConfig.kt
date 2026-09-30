@@ -4,6 +4,7 @@ import jakarta.servlet.FilterChain
 import jakarta.servlet.ServletException
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.http.HttpStatus
@@ -21,7 +22,15 @@ import java.io.IOException
 import java.util.function.Supplier
 
 @Configuration
-class SecurityConfig (val crr: ClientRegistrationRepository){
+class SecurityConfig (
+    val crr: ClientRegistrationRepository,
+    // Dove atterrare dopo il login. Si configura per profilo perche' dietro al proxy
+    // TLS serve l'URL ASSOLUTO in https: con un percorso relativo il container
+    // costruisce il Location con lo schema che vede lui (http sulla 8080), il browser
+    // ci va in chiaro e il cookie di sessione, essendo Secure, non parte piu'.
+    // In locale il valore predefinito "/ui" va benissimo: non c'e' proxy di mezzo.
+    @Value("\${app.login-success-url:/ui}") private val loginSuccessUrl: String,
+){
     fun oidcLogoutSuccessHandler() = OidcClientInitiatedLogoutSuccessHandler(crr)
         .also {it.setPostLogoutRedirectUri("https://www.christiandellisanti.uk/")}
 
@@ -53,7 +62,7 @@ class SecurityConfig (val crr: ClientRegistrationRepository){
             // NB: commenti di riga e non a blocco. In Kotlin i commenti /* */ si ANNIDANO,
             // e un percorso con la stella doppia scritto qui dentro aprirebbe un commento
             // interno lasciando aperto quello esterno.
-            .oauth2Login{ it.defaultSuccessUrl("/ui", true) }
+            .oauth2Login{ it.defaultSuccessUrl(loginSuccessUrl, true) }
             .oauth2ResourceServer {
                 it.jwt { }
             }

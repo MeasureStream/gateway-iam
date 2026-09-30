@@ -176,6 +176,17 @@ spring:
 server:
   max-http-request-header-size: 5MB
   port: 8080
+  # Dietro al tunnel che termina il TLS l'applicazione vede http sulla 8080: senza
+  # questa riga ogni URL che costruisce (redirect compresi) nasce in chiaro, il
+  # browser segnala il sito come non sicuro e il cookie di sessione, essendo Secure,
+  # smette di essere inviato. Con "framework" Spring legge gli header X-Forwarded-*
+  # e ricostruisce schema e host originali.
+  forward-headers-strategy: framework
+
+app:
+  # Atterraggio dopo il login. Assoluto e in https: e' la rete di sicurezza nel caso
+  # il proxy non inoltrasse gli header X-Forwarded-*.
+  login-success-url: https://www.christiandellisanti.uk/ui
 
 
 

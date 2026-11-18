@@ -22,13 +22,20 @@ spring:
             filters:
               - TokenRelay
 
-          #LAB 1 document_store
-          - id: sensor-manager-dcc
-            #uri: http://localhost:8081
-            uri: http://172.20.0.10:8080
-            #uri: http://sensor-manager:8080
+          # Metrologia: certificati e verifica (/API/dcc, il contratto della sezione Metrologia del
+          # frontend) ed esemplari, campioni, sessioni (/API/metrology). Prima /API/dcc andava a
+          # sensor-manager, che non la implementa.
+          - id: metrology-service-dcc
+            uri: http://172.20.0.16:8080
             predicates:
               - Path=/API/dcc/**
+            filters:
+              - TokenRelay
+
+          - id: metrology-service
+            uri: http://172.20.0.16:8080
+            predicates:
+              - Path=/API/metrology/**
             filters:
               - TokenRelay
 

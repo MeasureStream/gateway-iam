@@ -200,10 +200,11 @@ app:
 
 
 
+# In esercizio INFO: a DEBUG e TRACE ogni richiesta scriveva decine di righe sul disco della Pi,
+# comprese le EOFException innocue delle connessioni che il proxy apre e chiude a vuoto. Per
+# indagare si alza il livello senza ricompilare, dal compose:
+#   LOGGING_LEVEL_ROOT: DEBUG
+#   LOGGING_LEVEL_ORG_SPRINGFRAMEWORK_CLOUD_GATEWAY: TRACE
 logging:
   level:
-    root: DEBUG
-    org.springframework.web: DEBUG
-    org.springframework.security.oauth2: DEBUG
-    org.springframework.cloud.gateway: TRACE
-    org.springframework.security.oauth2.server.resource.authentication: DEBUG
+    root: INFO
